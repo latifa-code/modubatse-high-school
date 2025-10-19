@@ -151,63 +151,42 @@ function Gallery() {
   const images = [
     {
       src: "https://raw.githubusercontent.com/latifa-code/modubatse-high-school/main/FB_IMG_1760903123552.jpg",
-      title: "School Events Schedule",
-      description: "Secondary School Events - Scheduled Activities"
+      title: "School Events Schedule", 
+      description: "Upcoming school activities and events calendar"
     },
     {
       src: "https://raw.githubusercontent.com/latifa-code/modubatse-high-school/main/FB_IMG_1760903240550.jpg",
       title: "Choral Celebration Festival",
-      description: "Modubatse School Choir selected for festival"
+      description: "Our choir proudly selected for the Limpopo festival"
     },
     {
-      src: "https://raw.githubusercontent.com/latifa-code/modubatse-high-school/main/FB_IMG_1760903647952.jpg",
-      title: "Limpopo Jukskei Sports", 
-      description: "School sports and Jukskei competitions"
+      src: "https://raw.githubusercontent.com/latifa-code/modubatse-high-school/main/FB_IMG_1760903647952.jpg", 
+      title: "Limpopo Jukskei Sports",
+      description: "Students competing in traditional Jukskei sports"
     }
   ];
 
   return (
     <main className="max-w-6xl mx-auto px-4 md:px-8 py-12">
       <h2 className="text-3xl font-bold mb-4">School Gallery</h2>
-      <p className="text-gray-600 mb-8">Explore moments from our school events and activities</p>
+      <p className="text-gray-600 mb-8">Discover the vibrant life at Modubatse Secondary School through our events and activities</p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {images.map((image, index) => (
-          <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
-            <div className="h-48 bg-gray-200 flex items-center justify-center">
-              {image.src ? (
-                <img 
-                  src={image.src} 
-                  alt={image.title}
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.nextSibling.style.display = 'block';
-                  }}
-                />
-              ) : null}
-              <div className="text-gray-500 text-center p-4" style={{display: image.src ? 'none' : 'block'}}>
-                <p>Image loading...</p>
-                <p className="text-sm">Check if image is uploaded to GitHub</p>
-              </div>
+          <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow">
+            <div className="h-64 overflow-hidden">
+              <img 
+                src={image.src} 
+                alt={image.title}
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              />
             </div>
-            <div className="p-4">
-              <h3 className="font-semibold text-lg mb-2">{image.title}</h3>
-              <p className="text-gray-600 text-sm">{image.description}</p>
+            <div className="p-6">
+              <h3 className="font-bold text-xl text-gray-800 mb-3">{image.title}</h3>
+              <p className="text-gray-600 leading-relaxed">{image.description}</p>
             </div>
           </div>
         ))}
-      </div>
-
-      {/* If images still don't show, this will help debug */}
-      <div className="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-        <h3 className="font-semibold text-yellow-800 mb-2">Troubleshooting Images:</h3>
-        <p className="text-yellow-700 text-sm">
-          If images aren't showing, make sure:
-          <br/>1. All 3 images are uploaded to GitHub
-          <br/>2. The file names match exactly
-          <br/>3. You've committed the changes
-        </p>
       </div>
     </main>
   );
@@ -506,6 +485,7 @@ export default function App() {
     </div>
   );
 }
+
 
 
 
