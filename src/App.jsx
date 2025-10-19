@@ -149,19 +149,84 @@ function Programs() {
 
 function Gallery() {
   const images = [
-    "https://images.unsplash.com/photo-1509099836639-18ba6b097b70?q=80&w=1000&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1510744707863-2f3b9f1b8f4f?q=80&w=1000&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1504198266282-1659872e6590?q=80&w=1000&auto=format&fit=crop",
+    {
+      src: "https://raw.githubusercontent.com/latifa-code/modubatse-high-school/main/FB_IMG_1760903123552.jpg",
+      alt: "Secondary School Events - Scheduled Activities",
+      title: "School Events Schedule"
+    },
+    {
+      src: "https://raw.githubusercontent.com/latifa-code/modubatse-high-school/main/FB_IMG_1760903647952.jpg", 
+      alt: "Limpopo Jukskei - School Sports",
+      title: "Limpopo Jukskei Sports"
+    },
+    {
+      src: "https://raw.githubusercontent.com/latifa-code/modubatse-high-school/main/FB_IMG_1760903240550.jpg",
+      alt: "Choral Celebration Festival - Modubatse School Choir",
+      title: "Choral Celebration Festival"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1509099836639-18ba6b097b70?q=80&w=1000&auto=format&fit=crop",
+      alt: "Students in classroom",
+      title: "Classroom Learning"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1510744707863-2f3b9f1b8f4f?q=80&w=1000&auto=format&fit=crop",
+      alt: "School sports activity",
+      title: "Sports Activities"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1504198266282-1659872e6590?q=80&w=1000&auto=format&fit=crop",
+      alt: "School science lab",
+      title: "Science Laboratory"
+    }
   ];
+
   return (
     <main className="max-w-6xl mx-auto px-4 md:px-8 py-12">
-      <h2 className="text-3xl font-bold">Gallery</h2>
-      <div className="mt-6 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {images.map((src, i) => (
-          <figure key={i} className="overflow-hidden rounded-lg shadow-sm">
-            <img src={src} alt={`gallery ${i+1}`} className="w-full h-48 object-cover transform hover:scale-105 transition" />
-          </figure>
+      <h2 className="text-3xl font-bold">School Gallery</h2>
+      <p className="mt-2 text-gray-600">Explore moments from our school events, activities, and celebrations</p>
+      
+      <div className="mt-6 grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {images.map((image, i) => (
+          <div key={i} className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+            <figure className="overflow-hidden">
+              <img 
+                src={image.src} 
+                alt={image.alt}
+                className="w-full h-48 object-cover transform hover:scale-105 transition duration-300" 
+              />
+            </figure>
+            <div className="p-4">
+              <h3 className="font-semibold text-gray-800">{image.title}</h3>
+              <p className="text-sm text-gray-600 mt-1">{image.alt}</p>
+            </div>
+          </div>
         ))}
+      </div>
+
+      {/* Special Choral Festival Section */}
+      <div className="mt-12 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl p-6 text-white">
+        <h3 className="text-2xl font-bold mb-4">Choral Celebration Festival</h3>
+        <p className="text-lg mb-2">🎵 <strong>Modubatse School Choir Selected!</strong></p>
+        <p className="mb-4">Celebrating Choirs | Embracing Diversity | Creating Networks</p>
+        
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <p className="mb-2"><strong>Date:</strong> 22 August 2025 | 18:30</p>
+            <p className="mb-2"><strong>Venue:</strong> Taberna Dei, Polokwane</p>
+            <p className="mb-4"><strong>Location:</strong> Limpopo</p>
+          </div>
+          <div className="text-center">
+            <a 
+              href="https://tickets.tixsa.co.za/event/choral-celebratisn-festival-19-limpopo" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition"
+            >
+              🎟️ Get Your Tickets Online
+            </a>
+          </div>
+        </div>
       </div>
     </main>
   );
@@ -461,4 +526,5 @@ export default function App() {
     </div>
   );
 }
+
 
