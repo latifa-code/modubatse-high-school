@@ -96,8 +96,10 @@ function Hero() {
         </div>
 
         <div className="rounded-xl overflow-hidden shadow-lg">
-          <img alt="students learning" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1200&auto=format&fit=crop" className="w-full h-80 object-cover" />
-        </div>
+          <img alt="Modubatse Secondary School learners and staff"
+     src="https://raw.githubusercontent.com/latifa-code/modubatse-high-school/main/FB_IMG_1760898891315.jpg"
+     className="w-full h-80 object-cover" />
+       </div>
       </div>
     </section>
   );
@@ -459,3 +461,4 @@ export default function App() {
     </div>
   );
 }
+
