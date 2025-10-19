@@ -151,87 +151,67 @@ function Gallery() {
   const images = [
     {
       src: "https://raw.githubusercontent.com/latifa-code/modubatse-high-school/main/FB_IMG_1760903123552.jpg",
-      alt: "Secondary School Events - Scheduled Activities",
-      title: "School Events Schedule"
-    },
-    {
-      src: "https://raw.githubusercontent.com/latifa-code/modubatse-high-school/main/FB_IMG_1760903647952.jpg", 
-      alt: "Limpopo Jukskei - School Sports",
-      title: "Limpopo Jukskei Sports"
+      title: "School Events Schedule",
+      description: "Secondary School Events - Scheduled Activities"
     },
     {
       src: "https://raw.githubusercontent.com/latifa-code/modubatse-high-school/main/FB_IMG_1760903240550.jpg",
-      alt: "Choral Celebration Festival - Modubatse School Choir",
-      title: "Choral Celebration Festival"
+      title: "Choral Celebration Festival",
+      description: "Modubatse School Choir selected for festival"
     },
     {
-      src: "https://images.unsplash.com/photo-1509099836639-18ba6b097b70?q=80&w=1000&auto=format&fit=crop",
-      alt: "Students in classroom",
-      title: "Classroom Learning"
-    },
-    {
-      src: "https://images.unsplash.com/photo-1510744707863-2f3b9f1b8f4f?q=80&w=1000&auto=format&fit=crop",
-      alt: "School sports activity",
-      title: "Sports Activities"
-    },
-    {
-      src: "https://images.unsplash.com/photo-1504198266282-1659872e6590?q=80&w=1000&auto=format&fit=crop",
-      alt: "School science lab",
-      title: "Science Laboratory"
+      src: "https://raw.githubusercontent.com/latifa-code/modubatse-high-school/main/FB_IMG_1760903647952.jpg",
+      title: "Limpopo Jukskei Sports", 
+      description: "School sports and Jukskei competitions"
     }
   ];
 
   return (
     <main className="max-w-6xl mx-auto px-4 md:px-8 py-12">
-      <h2 className="text-3xl font-bold">School Gallery</h2>
-      <p className="mt-2 text-gray-600">Explore moments from our school events, activities, and celebrations</p>
-      
-      <div className="mt-6 grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {images.map((image, i) => (
-          <div key={i} className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-            <figure className="overflow-hidden">
-              <img 
-                src={image.src} 
-                alt={image.alt}
-                className="w-full h-48 object-cover transform hover:scale-105 transition duration-300" 
-              />
-            </figure>
+      <h2 className="text-3xl font-bold mb-4">School Gallery</h2>
+      <p className="text-gray-600 mb-8">Explore moments from our school events and activities</p>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {images.map((image, index) => (
+          <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
+            <div className="h-48 bg-gray-200 flex items-center justify-center">
+              {image.src ? (
+                <img 
+                  src={image.src} 
+                  alt={image.title}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'block';
+                  }}
+                />
+              ) : null}
+              <div className="text-gray-500 text-center p-4" style={{display: image.src ? 'none' : 'block'}}>
+                <p>Image loading...</p>
+                <p className="text-sm">Check if image is uploaded to GitHub</p>
+              </div>
+            </div>
             <div className="p-4">
-              <h3 className="font-semibold text-gray-800">{image.title}</h3>
-              <p className="text-sm text-gray-600 mt-1">{image.alt}</p>
+              <h3 className="font-semibold text-lg mb-2">{image.title}</h3>
+              <p className="text-gray-600 text-sm">{image.description}</p>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Special Choral Festival Section */}
-      <div className="mt-12 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl p-6 text-white">
-        <h3 className="text-2xl font-bold mb-4">Choral Celebration Festival</h3>
-        <p className="text-lg mb-2">🎵 <strong>Modubatse School Choir Selected!</strong></p>
-        <p className="mb-4">Celebrating Choirs | Embracing Diversity | Creating Networks</p>
-        
-        <div className="grid md:grid-cols-2 gap-6">
-          <div>
-            <p className="mb-2"><strong>Date:</strong> 22 August 2025 | 18:30</p>
-            <p className="mb-2"><strong>Venue:</strong> Taberna Dei, Polokwane</p>
-            <p className="mb-4"><strong>Location:</strong> Limpopo</p>
-          </div>
-          <div className="text-center">
-            <a 
-              href="https://tickets.tixsa.co.za/event/choral-celebratisn-festival-19-limpopo" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-block bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition"
-            >
-              🎟️ Get Your Tickets Online
-            </a>
-          </div>
-        </div>
+      {/* If images still don't show, this will help debug */}
+      <div className="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+        <h3 className="font-semibold text-yellow-800 mb-2">Troubleshooting Images:</h3>
+        <p className="text-yellow-700 text-sm">
+          If images aren't showing, make sure:
+          <br/>1. All 3 images are uploaded to GitHub
+          <br/>2. The file names match exactly
+          <br/>3. You've committed the changes
+        </p>
       </div>
     </main>
   );
 }
-
 // Admissions page: includes policy and printable application form
 function Admissions() {
   return (
@@ -526,5 +506,6 @@ export default function App() {
     </div>
   );
 }
+
 
 
