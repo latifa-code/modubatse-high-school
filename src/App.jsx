@@ -1,34 +1,36 @@
-/*
-Modubatse High School - Website
-Built with React + Tailwind CSS for Ponontle Website Competition 2025
+/* src/App.jsx
+   Updated for Modubatse Secondary School
+   - Slogan, contact, address updated
+   - Admissions policy and printable/saveable application form added
 */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
-// Simple hash router
+// Tiny hash router
 function Router({ routes }) {
-  const [path, setPath] = useState(window.location.hash.replace('#', '') || '/');
+  const [path, setPath] = useState(window.location.hash.replace("#", "") || "/");
   useEffect(() => {
-    const onHash = () => setPath(window.location.hash.replace('#', '') || '/');
-    window.addEventListener('hashchange', onHash);
-    return () => window.removeEventListener('hashchange', onHash);
+    const onHash = () => setPath(window.location.hash.replace("#", "") || "/");
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
   }, []);
-  const Route = routes[path] || routes['/404'];
+  const Route = routes[path] || routes["/404"];
   return Route ? <Route /> : null;
 }
 
-const tel = (n) => `tel:${n}`;
+const PHONE = "0615267344";
+const TEL = (n) => `tel:${n}`;
+const EMAIL = "info@modubatsesecondaryschool.co.za";
 
-// Header
 function Header() {
   return (
     <header className="bg-gradient-to-r from-blue-700 to-indigo-700 text-white sticky top-0 z-40 shadow">
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-lg font-bold">MH</div>
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-lg font-bold">MS</div>
             <div>
-              <a href="#/" className="text-xl font-semibold leading-4">Modubatse High School</a>
-              <div className="text-sm opacity-80">Knowledge • Growth • Excellence</div>
+              <a href="#/" className="text-xl font-semibold leading-4">Modubatse Secondary School</a>
+              <div className="text-sm opacity-90">Knowledge is power</div>
             </div>
           </div>
 
@@ -41,95 +43,99 @@ function Header() {
             <a href="#/contact" className="hover:underline">Contact</a>
           </nav>
 
-          <MobileMenu />
+          <div className="flex items-center gap-3">
+            <a href={TEL(PHONE)} className="hidden md:inline-block bg-white/20 px-3 py-2 rounded-md">Call: {PHONE}</a>
+            <MobileMenu />
+          </div>
         </div>
       </div>
     </header>
   );
 }
 
-// Mobile menu
 function MobileMenu() {
   const [open, setOpen] = useState(false);
   return (
     <div className="md:hidden relative">
       <button aria-expanded={open} onClick={() => setOpen(!open)} className="p-2 bg-white/10 rounded">
         <span className="sr-only">Open menu</span>
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
       </button>
       {open && (
-        <div className="absolute right-0 mt-2 w-44 bg-white/95 text-gray-800 rounded shadow-lg">
+        <div className="absolute right-0 mt-2 w-48 bg-white/95 text-gray-800 rounded shadow-lg">
           <a className="block px-4 py-3 border-b" href="#/">Home</a>
           <a className="block px-4 py-3 border-b" href="#/about">About</a>
           <a className="block px-4 py-3 border-b" href="#/programs">Programs</a>
           <a className="block px-4 py-3 border-b" href="#/gallery">Gallery</a>
-          <a className="block px-4 py-3" href="#/contact">Contact</a>
+          <a className="block px-4 py-3" href="#/admissions">Admissions</a>
         </div>
       )}
     </div>
   );
 }
 
-// Home Page
-function Home() {
+function Hero() {
   return (
-    <div>
-      <section className="max-w-6xl mx-auto px-4 md:px-8 py-16 grid md:grid-cols-2 gap-8 items-center">
+    <section className="bg-white">
+      <div className="max-w-6xl mx-auto px-4 md:px-8 py-12 md:py-20 grid md:grid-cols-2 gap-8 items-center">
         <div>
-          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">Welcome to Modubatse High School</h1>
-          <p className="mt-4 text-lg text-gray-700">
-            A place of excellence where we nurture young minds through quality education, discipline, and innovation.
-          </p>
+          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">Modubatse Secondary School</h1>
+          <p className="mt-4 text-lg md:text-xl text-gray-700">A school of excellence where young people gain knowledge, character and skills for the future.</p>
+
           <div className="mt-6 flex flex-wrap gap-3">
-            <a href="#/admissions" className="inline-block bg-indigo-600 text-white px-5 py-3 rounded-lg shadow hover:brightness-105">
-              Apply for Admission
-            </a>
-            <a href="#/programs" className="inline-block border border-indigo-200 px-5 py-3 rounded-lg">
-              View Programs
-            </a>
+            <a href="#/admissions" className="inline-block bg-indigo-600 text-white px-5 py-3 rounded-lg shadow hover:brightness-105">Apply / Admissions</a>
+            <a href="#/programs" className="inline-block border border-indigo-200 px-5 py-3 rounded-lg">Our Programs</a>
           </div>
+
+          <ul className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-gray-600">
+            <li>✅ Small class sizes</li>
+            <li>✅ Holistic curriculum</li>
+            <li>✅ Aftercare & clubs</li>
+            <li>✅ Qualified teachers</li>
+          </ul>
         </div>
-        <img
-          src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1200&auto=format&fit=crop"
-          alt="Students"
-          className="rounded-lg shadow-lg"
-        />
-      </section>
-    </div>
+
+        <div className="rounded-xl overflow-hidden shadow-lg">
+          <img alt="students learning" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1200&auto=format&fit=crop" className="w-full h-80 object-cover" />
+        </div>
+      </div>
+    </section>
   );
 }
 
-// About
 function About() {
   return (
     <main className="max-w-6xl mx-auto px-4 md:px-8 py-12">
-      <h2 className="text-3xl font-bold">About Modubatse High School</h2>
+      <h2 className="text-3xl font-bold">About Modubatse Secondary School</h2>
       <p className="mt-4 text-gray-700">
-        Established with the goal of academic excellence, Modubatse High School offers a balanced education focusing on knowledge, skills, and character. 
-        Our learners are encouraged to become innovative thinkers and responsible citizens.
+        Modubatse Secondary School is committed to providing a strong academic foundation, life skills, and character development. We prepare learners for further study and responsible citizenship.
       </p>
-      <p className="mt-4 text-gray-700">
-        We take pride in our dedicated teachers, supportive parents, and motivated learners who embody our values of Respect, Integrity, and Achievement.
-      </p>
+      <div className="mt-6">
+        <h3 className="font-semibold">Our Values</h3>
+        <ul className="list-disc pl-5 mt-2 text-gray-700">
+          <li>Respect</li>
+          <li>Discipline</li>
+          <li>Curiosity</li>
+          <li>Excellence</li>
+        </ul>
+      </div>
     </main>
   );
 }
 
-// Programs
 function Programs() {
   const items = [
-    { title: "Mathematics & Science", desc: "Equipping learners with analytical and problem-solving skills for future success." },
-    { title: "Commerce & Business Studies", desc: "Preparing students with entrepreneurial and financial literacy." },
-    { title: "Technology & Computer Skills", desc: "Developing modern ICT knowledge for the digital world." }
+    { title: "Mathematics & Science", desc: "Analytical and practical skills to support STEM careers." },
+    { title: "Commerce & Business Studies", desc: "Financial literacy, entrepreneurship and commerce basics." },
+    { title: "Information Technology", desc: "Practical ICT skills and computer literacy." }
   ];
   return (
     <main className="max-w-6xl mx-auto px-4 md:px-8 py-12">
-      <h2 className="text-3xl font-bold">Our Academic Programs</h2>
+      <h2 className="text-3xl font-bold">Our Programs</h2>
+      <p className="mt-2 text-gray-600">A balanced curriculum designed to help learners discover their strengths.</p>
       <div className="mt-6 grid md:grid-cols-3 gap-6">
         {items.map((it, i) => (
-          <div key={i} className="bg-white p-6 rounded-lg shadow-sm border">
+          <div key={i} className="bg-white rounded-lg p-6 shadow-sm border">
             <h3 className="font-semibold text-lg">{it.title}</h3>
             <p className="mt-2 text-gray-700">{it.desc}</p>
           </div>
@@ -139,38 +145,297 @@ function Programs() {
   );
 }
 
-// Contact
-function Contact() {
+function Gallery() {
+  const images = [
+    "https://images.unsplash.com/photo-1509099836639-18ba6b097b70?q=80&w=1000&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1510744707863-2f3b9f1b8f4f?q=80&w=1000&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1504198266282-1659872e6590?q=80&w=1000&auto=format&fit=crop",
+  ];
   return (
-    <main className="max-w-4xl mx-auto px-4 md:px-8 py-12">
-      <h2 className="text-3xl font-bold">Contact Us</h2>
-      <p className="mt-2 text-gray-700">We’d love to hear from you. Reach out for admissions or general inquiries.</p>
-      <p className="mt-6 text-gray-700">
-        📍 Modubatse High School, Fauna Park, South Africa<br />
-        📞 <a href={tel("+27123456789")} className="text-indigo-600">+27 12 345 6789</a><br />
-        📧 <a href="mailto:info@modubatsehighschool.co.za" className="text-indigo-600">info@modubatsehighschool.co.za</a>
-      </p>
+    <main className="max-w-6xl mx-auto px-4 md:px-8 py-12">
+      <h2 className="text-3xl font-bold">Gallery</h2>
+      <div className="mt-6 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {images.map((src, i) => (
+          <figure key={i} className="overflow-hidden rounded-lg shadow-sm">
+            <img src={src} alt={`gallery ${i+1}`} className="w-full h-48 object-cover transform hover:scale-105 transition" />
+          </figure>
+        ))}
+      </div>
     </main>
   );
 }
 
-// 404 page
-function NotFound() {
+// Admissions page: includes policy and printable application form
+function Admissions() {
   return (
-    <main className="text-center py-20">
-      <h2 className="text-4xl font-bold">404 — Page Not Found</h2>
-      <a href="#/" className="mt-6 inline-block bg-indigo-600 text-white px-4 py-2 rounded">Back to Home</a>
+    <main className="max-w-5xl mx-auto px-4 md:px-8 py-12">
+      <h2 className="text-3xl font-bold">Admissions</h2>
+      <p className="mt-2 text-gray-600">Welcome. Please review our admissions policy below and complete the application form to apply.</p>
+
+      <AdmissionPolicy />
+
+      <div className="mt-8">
+        <h3 className="text-2xl font-semibold">Apply for Admission</h3>
+        <p className="mt-2 text-gray-700">Use the form below to request admission. You can print/save the filled form as PDF or download it.</p>
+
+        <ApplicationForm />
+      </div>
     </main>
+  );
+}
+
+function AdmissionPolicy() {
+  return (
+    <section className="mt-6 bg-gray-50 p-6 rounded-lg border">
+      <h3 className="font-semibold text-xl">Admissions Policy</h3>
+      <p className="mt-3 text-gray-700">
+        Admission to Modubatse Secondary School is administered in accordance with the Constitution of the Republic of South Africa (Act 108 of 1996), the South African Schools Act (Act 84 of 1996), and the National Education Policy Act (Act 27 of 1996). We are committed to non-discrimination, equal access where possible, and transparent admission processes. The following principles apply:
+      </p>
+
+      <ul className="list-disc pl-5 mt-3 text-gray-700 space-y-2">
+        <li><strong>Non-discrimination:</strong> Admissions will not be based on race, religion, gender, or disability.</li>
+        <li><strong>Transparency:</strong> Requirements and selection criteria will be communicated clearly to applicants.</li>
+        <li><strong>Priority:</strong> Where demand exceeds places, priority may be given to siblings of current learners and to children who live within the zoning area, in line with our fair admissions practice.</li>
+        <li><strong>Documentation:</strong> Applicants must provide identification and proof of residence as part of the application process.</li>
+      </ul>
+
+      <p className="mt-3 text-sm text-gray-600 italic">
+        Note: This policy provides a summary of our process. For full legal guidance consult the referenced Acts and the school office.
+      </p>
+    </section>
+  );
+}
+
+function ApplicationForm() {
+  const [form, setForm] = useState({
+    parentName: "",
+    parentID: "",
+    childName: "",
+    childID: "",
+    grade: "",
+    dob: "",
+    address: "",
+    phone: "",
+    email: "",
+    previousSchool: "",
+    medical: "",
+    additionalInfo: ""
+  });
+
+  const formRef = useRef(null);
+
+  function onChange(e) {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    // For demo, open mail client with summary; for official use connect to backend
+    const subject = encodeURIComponent("Admission application - Modubatse Secondary School");
+    const body = encodeURIComponent(
+      `Parent/Guardian: ${form.parentName}\nParent ID: ${form.parentID}\nChild: ${form.childName}\nChild ID: ${form.childID}\nGrade: ${form.grade}\nDOB: ${form.dob}\nAddress: ${form.address}\nPhone: ${form.phone}\nEmail: ${form.email}\nPrevious School: ${form.previousSchool}\nMedical: ${form.medical}\nAdditional: ${form.additionalInfo}`
+    );
+    window.location.href = `mailto:admissions@modubatsesecondaryschool.co.za?subject=${subject}&body=${body}`;
+  }
+
+  function handlePrint() {
+    // Print only the form area: create a print window
+    if (!formRef.current) return;
+    const original = document.body.innerHTML;
+    const html = formRef.current.innerHTML;
+    const printWindow = window.open("", "_blank", "width=800,height=600");
+    printWindow.document.write(`
+      <html><head><title>Modubatse Secondary School - Application Form</title>
+      <style>
+        body { font-family: Arial, sans-serif; padding: 20px; color: #111; }
+        h2 { color: #1e3a8a; }
+        .field { margin-bottom: 12px; }
+        .label { font-weight: 600; }
+      </style>
+      </head><body>
+      <h2>Modubatse Secondary School - Application Form</h2>
+      ${html}
+      <p style="font-size:11px;color:#555;margin-top:20px;">Admissions administered in accordance with: Constitution (Act 108 of 1996); South African Schools Act (Act 84 of 1996); National Education Policy Act (Act 27 of 1996).</p>
+      </body></html>
+    `);
+    printWindow.document.close();
+    printWindow.focus();
+    // give the browser a moment
+    setTimeout(() => {
+      printWindow.print();
+      // optionally close: printWindow.close();
+    }, 500);
+  }
+
+  function handleDownload() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(form, null, 2));
+    const dlAnchor = document.createElement("a");
+    dlAnchor.setAttribute("href", dataStr);
+    dlAnchor.setAttribute("download", `modubatse-application-${form.childName || "unnamed"}.json`);
+    document.body.appendChild(dlAnchor);
+    dlAnchor.click();
+    dlAnchor.remove();
+  }
+
+  return (
+    <div className="mt-6 bg-white p-6 rounded-lg shadow-sm">
+      <div ref={formRef}>
+        <h4 className="font-semibold text-lg">Application Form</h4>
+        <form onSubmit={handleSubmit} className="mt-4 grid gap-3">
+          <div className="grid sm:grid-cols-2 gap-3">
+            <input required name="parentName" value={form.parentName} onChange={onChange} placeholder="Parent / Guardian full name" className="p-3 rounded border" />
+            <input name="parentID" value={form.parentID} onChange={onChange} placeholder="Parent ID number" className="p-3 rounded border" />
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-3">
+            <input required name="childName" value={form.childName} onChange={onChange} placeholder="Child full name" className="p-3 rounded border" />
+            <input name="childID" value={form.childID} onChange={onChange} placeholder="Child ID number (if available)" className="p-3 rounded border" />
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-3">
+            <input required name="grade" value={form.grade} onChange={onChange} placeholder="Applying for (e.g., Grade 8)" className="p-3 rounded border" />
+            <input name="dob" type="date" value={form.dob} onChange={onChange} className="p-3 rounded border" />
+          </div>
+
+          <input required name="address" value={form.address} onChange={onChange} placeholder="Home address" className="p-3 rounded border" />
+          <div className="grid sm:grid-cols-2 gap-3">
+            <input required name="phone" value={form.phone} onChange={onChange} placeholder="Phone number" className="p-3 rounded border" />
+            <input required name="email" type="email" value={form.email} onChange={onChange} placeholder="Email address" className="p-3 rounded border" />
+          </div>
+
+          <input name="previousSchool" value={form.previousSchool} onChange={onChange} placeholder="Previous school (if any)" className="p-3 rounded border" />
+          <textarea name="medical" value={form.medical} onChange={onChange} placeholder="Medical information / allergies" rows={3} className="p-3 rounded border" />
+
+          <textarea name="additionalInfo" value={form.additionalInfo} onChange={onChange} placeholder="Any additional information" rows={3} className="p-3 rounded border" />
+
+          <div className="flex gap-3 mt-2">
+            <button type="submit" className="bg-indigo-600 text-white px-5 py-2 rounded">Send Application (email)</button>
+            <button type="button" onClick={handlePrint} className="px-4 py-2 border rounded">Print / Save as PDF</button>
+            <button type="button" onClick={handleDownload} className="px-4 py-2 border rounded">Download application</button>
+          </div>
+        </form>
+      </div>
+
+      <div className="mt-4 text-sm text-gray-600">
+        <p><strong>Note:</strong> Submitting via email opens your mail client with the application details. For official submission, include required documents (ID, proof of residence) to the school office.</p>
+      </div>
+    </div>
+  );
+}
+
+function Contact() {
+  return (
+    <main className="max-w-4xl mx-auto px-4 md:px-8 py-12">
+      <h2 className="text-3xl font-bold">Contact Us</h2>
+      <p className="mt-2 text-gray-600">Questions? Book a tour or drop us a message.</p>
+
+      <div className="mt-6 grid md:grid-cols-2 gap-8 items-start">
+        <div className="bg-white rounded-lg p-6 shadow-sm">
+          <h3 className="font-semibold">School Details</h3>
+          <p className="mt-2 text-gray-700">
+            Modubatse Secondary School<br />
+            Stand 921, Home2000, Ga-Kgapane<br />
+            0838 Greater Letaba, South Africa
+          </p>
+          <p className="mt-2">Phone: <a href={TEL(PHONE)} className="text-indigo-600">{PHONE}</a></p>
+          <p>Email: <a href={`mailto:${EMAIL}`} className="text-indigo-600">{EMAIL}</a></p>
+
+          <div className="mt-4">
+            <h4 className="font-semibold">Opening Hours</h4>
+            <p className="text-gray-600">Mon–Fri: 07:30 — 15:30</p>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg p-6 shadow-sm">
+          <h3 className="font-semibold">Send a message</h3>
+          <ContactForm />
+        </div>
+      </div>
+    </main>
+  );
+}
+
+function ContactForm() {
+  const [msg, setMsg] = useState({ name: "", email: "", message: "" });
+  const onChange = (e) => setMsg({ ...msg, [e.target.name]: e.target.value });
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const subject = encodeURIComponent("Modubatse Secondary School Website Enquiry");
+    const body = encodeURIComponent(`From: ${msg.name} (${msg.email})\n\n${msg.message}`);
+    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+  };
+  return (
+    <form onSubmit={onSubmit} className="mt-4 grid gap-3">
+      <input required name="name" value={msg.name} onChange={onChange} placeholder="Your name" className="p-3 rounded border" />
+      <input required name="email" type="email" value={msg.email} onChange={onChange} placeholder="Your email" className="p-3 rounded border" />
+      <textarea required name="message" value={msg.message} onChange={onChange} rows={4} placeholder="Message" className="p-3 rounded border" />
+      <div className="flex gap-3">
+        <button className="bg-indigo-600 text-white px-4 py-2 rounded">Send Message</button>
+        <button type="button" onClick={() => setMsg({ name: "", email: "", message: "" })} className="px-4 py-2 border rounded">Reset</button>
+      </div>
+    </form>
   );
 }
 
 function Footer() {
   return (
-    <footer className="bg-gray-900 text-white py-6 mt-12">
-      <div className="text-center text-sm">
-        © {new Date().getFullYear()} Modubatse High School — All rights reserved.
+    <footer className="bg-gray-900 text-white mt-12">
+      <div className="max-w-6xl mx-auto px-4 md:px-8 py-12 grid md:grid-cols-3 gap-6">
+        <div>
+          <h4 className="font-semibold text-lg">Modubatse Secondary School</h4>
+          <p className="mt-2 text-sm text-gray-300">Knowledge is power — join our community and book a tour today.</p>
+        </div>
+        <div>
+          <h5 className="font-semibold">Quick Links</h5>
+          <ul className="mt-2 space-y-1 text-sm text-gray-300">
+            <li><a href="#/">Home</a></li>
+            <li><a href="#/about">About</a></li>
+            <li><a href="#/programs">Programs</a></li>
+            <li><a href="#/admissions">Admissions</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 className="font-semibold">Contact</h5>
+          <p className="text-sm text-gray-300">{PHONE}<br />{EMAIL}</p>
+        </div>
       </div>
+      <div className="border-t border-white/10 text-sm text-gray-400 py-4">© {new Date().getFullYear()} Modubatse Secondary School — All rights reserved.</div>
     </footer>
+  );
+}
+
+function Home() {
+  return (
+    <div>
+      <Hero />
+      <section className="max-w-6xl mx-auto px-4 md:px-8 py-12">
+        <h2 className="text-2xl font-bold">Trusted by parents</h2>
+        <div className="mt-6 grid md:grid-cols-3 gap-6">
+          <div className="bg-white rounded-lg p-6 shadow-sm">
+            <p className="italic text-gray-700">"Supportive teachers and great discipline — my child thrives."</p>
+            <p className="mt-4 font-semibold">— A Parent</p>
+          </div>
+          <div className="bg-white rounded-lg p-6 shadow-sm">
+            <p className="italic text-gray-700">"Practical ICT and strong maths program."</p>
+            <p className="mt-4 font-semibold">— B Parent</p>
+          </div>
+          <div className="bg-white rounded-lg p-6 shadow-sm">
+            <p className="italic text-gray-700">"Good focus on values and school culture."</p>
+            <p className="mt-4 font-semibold">— C Parent</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function NotFound() {
+  return (
+    <main className="max-w-4xl mx-auto px-4 md:px-8 py-20 text-center">
+      <h2 className="text-4xl font-bold">404 — Page not found</h2>
+      <p className="mt-4 text-gray-600">Sorry, we couldn't find the page you're looking for.</p>
+      <a href="#/" className="mt-6 inline-block bg-indigo-600 text-white px-4 py-2 rounded">Back to Home</a>
+    </main>
   );
 }
 
@@ -179,6 +444,8 @@ export default function App() {
     "/": Home,
     "/about": About,
     "/programs": Programs,
+    "/gallery": Gallery,
+    "/admissions": Admissions,
     "/contact": Contact,
     "/404": NotFound,
   };
