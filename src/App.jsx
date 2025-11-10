@@ -4,6 +4,7 @@
    - Admissions policy and printable/saveable application form added
 */
 import React, { useState, useEffect, useRef } from "react";
+import jsPDF from "jspdf";
 
 // Tiny hash router
 function Router({ routes }) {
@@ -293,15 +294,42 @@ function ApplicationForm() {
     }, 500);
   }
 
-  function handleDownload() {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(form, null, 2));
-    const dlAnchor = document.createElement("a");
-    dlAnchor.setAttribute("href", dataStr);
-    dlAnchor.setAttribute("download", `modubatse-application-${form.childName || "unnamed"}.json`);
-    document.body.appendChild(dlAnchor);
-    dlAnchor.click();
-    dlAnchor.remove();
-  }
+ function handleDownload() {
+  const doc = new jsPDF();
+
+  doc.setFontSize(14);
+  doc.text("Modubatse Secondary School", 10, 15);
+  doc.setFontSize(10);
+  doc.text("Knowledge is power", 10, 22);
+  doc.text("Stand 921, Home2000, Ga-Kgapane, 0838 Greater Letaba, South Africa", 10, 28);
+  doc.text("Phone: 061 526 7344   Email: admissions@modubatsesecondaryschool.co.za", 10, 34);
+
+  doc.setFontSize(12);
+  doc.text("Admission Application Form", 10, 46);
+
+  doc.setFontSize(9);
+  doc.text(
+    "Administered in accordance with the Constitution (Act 108 of 1996), South African Schools Act (Act 84 of 1996), and National Education Policy Act (Act 27 of 1996).",
+    10,
+    52,
+    { maxWidth: 180 }
+  );
+
+  let y = 66;
+  Object.entries(form).forEach(([key, value]) => {
+    const label = key.replace(/([A-Z])/g, " $1").replace(/^./, str => str.toUpperCase());
+    doc.text(`${label}: ${value || ""}`, 10, y);
+    y += 8;
+    if (y > 270) {          // start a new page if needed
+      doc.addPage();
+      y = 20;
+    }
+  });
+
+  const fileName = `Modubatse_Application_${form.childName || "Unnamed"}.pdf`;
+  doc.save(fileName);
+}
+
 
   return (
     <div className="mt-6 bg-white p-6 rounded-lg shadow-sm">
@@ -485,6 +513,7 @@ export default function App() {
     </div>
   );
 }
+
 
 
 
