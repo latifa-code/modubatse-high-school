@@ -294,40 +294,81 @@ function ApplicationForm() {
     }, 500);
   }
 
- function handleDownload() {
+function handleDownload() {
   const doc = new jsPDF();
 
-  doc.setFontSize(14);
-  doc.text("Modubatse Secondary School", 10, 15);
-  doc.setFontSize(10);
-  doc.text("Knowledge is power", 10, 22);
-  doc.text("Stand 921, Home2000, Ga-Kgapane, 0838 Greater Letaba, South Africa", 10, 28);
-  doc.text("Phone: 061 526 7344   Email: admissions@modubatsesecondaryschool.co.za", 10, 34);
+  // OPTIONAL: School logo
+  const logoUrl = "https://raw.githubusercontent.com/latifa-code/modubatse-high-school/main/modubatse-logo.png"; // replace with your actual logo URL
+  const img = new Image();
+  img.src = logoUrl;
+  img.onload = () => {
+    doc.addImage(img, "PNG", 160, 10, 35, 20); // top-right corner
 
-  doc.setFontSize(12);
-  doc.text("Admission Application Form", 10, 46);
+    // Header
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(16);
+    doc.text("Modubatse Secondary School", 14, 20);
 
-  doc.setFontSize(9);
-  doc.text(
-    "Administered in accordance with the Constitution (Act 108 of 1996), South African Schools Act (Act 84 of 1996), and National Education Policy Act (Act 27 of 1996).",
-    10,
-    52,
-    { maxWidth: 180 }
-  );
+    doc.setFont("helvetica", "italic");
+    doc.setFontSize(11);
+    doc.text("“Knowledge is Power”", 14, 27);
 
-  let y = 66;
-  Object.entries(form).forEach(([key, value]) => {
-    const label = key.replace(/([A-Z])/g, " $1").replace(/^./, str => str.toUpperCase());
-    doc.text(`${label}: ${value || ""}`, 10, y);
-    y += 8;
-    if (y > 270) {          // start a new page if needed
-      doc.addPage();
-      y = 20;
-    }
-  });
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.text("Stand 921, Home2000, Ga-Kgapane, 0838 Greater Letaba, South Africa", 14, 33);
+    doc.text("Phone: 061 526 7344   |   Email: admissions@modubatsesecondaryschool.co.za", 14, 39);
 
-  const fileName = `Modubatse_Application_${form.childName || "Unnamed"}.pdf`;
-  doc.save(fileName);
+    // Line divider
+    doc.setLineWidth(0.5);
+    doc.line(10, 43, 200, 43);
+
+    // Title
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(13);
+    doc.text("Admission Application Form", 14, 52);
+
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "normal");
+    doc.text(
+      "Administered in accordance with: Constitution (Act 108 of 1996), South African Schools Act (Act 84 of 1996), and National Education Policy Act (Act 27 of 1996).",
+      14,
+      59,
+      { maxWidth: 180 }
+    );
+
+    // Application details
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "bold");
+    doc.text("Applicant Details:", 14, 72);
+
+    doc.setFont("helvetica", "normal");
+    let y = 80;
+
+    Object.entries(form).forEach(([key, value]) => {
+      const label = key
+        .replace(/([A-Z])/g, " $1")
+        .replace(/^./, (str) => str.toUpperCase());
+      doc.text(`${label}: ${value || ""}`, 14, y);
+      y += 8;
+      if (y > 270) {
+        doc.addPage();
+        y = 20;
+      }
+    });
+
+    // Footer
+    doc.setFontSize(9);
+    doc.setTextColor(100);
+    doc.text(
+      "This form was generated from the official Modubatse Secondary School website.",
+      14,
+      285
+    );
+
+    doc.save(
+      `Modubatse_Application_${form.childName || "Unnamed"}.pdf`
+    );
+  };
 }
 
 
@@ -513,6 +554,7 @@ export default function App() {
     </div>
   );
 }
+
 
 
 
